@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.home_vedio_pro.dao.vedio_type.VedioTypeDao">
+	
+    <!-- 视频类型模型 -->
+	<resultMap type="com.home_vedio_pro.model.vedio_type.VedioTypeModel" id="vedioTypeModel">
+		<id column="home_vedio_dict_id" property="vedioTypeId"/>
+		<result property="vedioTypeName" column="home_vedio_name"></result>
+		<result property="vedioTypeValue" column="home_vedio_value"></result>
+	</resultMap>
+	
+	<!-- 批量插入数据 -->
+	<insert id="addVedioTypeByList" parameterType="java.util.List">
+	    INSERT INTO home_vedio_dict_t(home_vedio_name,home_vedio_value)
+	    VALUES 
+		<foreach collection="list" index="index" item="item" separator=",">
+			(#{item.vedioTypeName},#{item.vedioTypeValue})
+		</foreach>
+	</insert>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.home_vedio_pro.dao.user.UserDao">
+	
+    <!-- 用户模型 -->
+	<resultMap type="com.home_vedio_pro.model.user.UserModel" id="userModel">
+		<id column="user_id" property="user_id"/>
+		<result property="user_name" column="user_name"></result>
+		<result property="user_password" column="user_password"></result>
+		<result property="user_email" column="user_email"></result>
+		<result property="home_vedio_dict_id" column="home_vedio_dict_id"></result>
+		<result property="home_vedio_dict_value" column="home_vedio_dict_value"></result>
+		<result property="create_date" column="create_date"></result>
+	</resultMap>
+	
+	<!-- 根据用户对象查村当前用户 -->
+	<select id="getUserModelByUser" resultMap="userModel" parameterType="com.home_vedio_pro.model.user.UserModel">
+	    select ut.user_id,ut.user_name,ut.user_password,ut.user_email,ut.create_date,hvdt.home_vedio_dict_id,hvdt.home_vedio_value
+		from user_t ut 
+		LEFT JOIN home_vedio_dict_t hvdt ON ut.home_vedio_dict_id = hvdt.home_vedio_dict_id
+		WHERE ut.user_name = #{user_name}
+		AND ut.user_password = #{user_password}
+	</select>
+	
+</mapper>
